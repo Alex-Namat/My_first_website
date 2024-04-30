@@ -15,15 +15,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Авторизутесь!</h1>
+                    <h1>Страница постов</h1>
                     <?php
                         if (!isset($_COOKIE['User'])) {
                             ?>
                                 <a href="/registration.php">Зарегистрируйтесь</a> или <a href="/login.php">войдите</a>, чтобы просматривать контент!
                             <?php
+                        } else {
+                            $link = mysqli_connect('127.0.0.1', 'root', 'mariadb', 'users_db');
+
+                            $sql = "SELECT * FROM posts";
+                            $result = mysqli_query($link, $sql);
+
+
+                            echo '</div><div class="row"><div class="col-12">';
+                            if (mysqli_num_rows($result) >  0) {
+                                while ($post = mysqli_fetch_array($result)) {
+                                    echo "<a href='/posts.php?id=" . $post["id"] . "'>" . $post['title'] . "</a><br>";
+                                }
                             } else {
-                                // подключение к БД
+                                echo "Записей пока нет";
                             }
+                            echo "</div>";
+                        }
                     ?>
                 </div>
             </div>
