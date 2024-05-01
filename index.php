@@ -19,7 +19,8 @@
                     <?php
                         if (!isset($_COOKIE['User'])) {
                             ?>
-                                <a href="/registration.php">Зарегистрируйтесь</a> или <a href="/login.php">войдите</a>, чтобы просматривать контент!
+                </div><div class="row"><div class="col-12">
+                                <a href="/registration.php">Зарегистрируйтесь</a> или <a href="/login.php">войдите</a>, чтобы просматривать контент!</div></div>
                             <?php
                         } else {
                             $link = mysqli_connect('127.0.0.1', 'root', 'mariadb', 'users_db');
@@ -31,7 +32,9 @@
                             echo '</div><div class="row"><div class="col-12">';
                             if (mysqli_num_rows($result) >  0) {
                                 while ($post = mysqli_fetch_array($result)) {
+                                    echo '</div><div class="row"><div class="col-12">';
                                     echo "<a href='/posts.php?id=" . $post["id"] . "'>" . $post['title'] . "</a><br>";
+                                    echo "</div>";
                                 }
                             } else {
                                 echo "Записей пока нет";
